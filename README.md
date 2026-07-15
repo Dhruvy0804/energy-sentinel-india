@@ -25,7 +25,13 @@ This is not a static UI. Metrics, charts, procurement rankings, and the memo are
 
 ## Live Demo
 
-Recommended local demo:
+View the hosted Streamlit demo here:
+
+https://energy-sentinel-india.streamlit.app/
+
+## Run Locally
+
+Streamlit local demo:
 
 ```powershell
 npm run streamlit
@@ -208,7 +214,7 @@ asean
 
 ## Demo Script for Judges
 
-1. Open the Streamlit dashboard.
+1. Open the hosted dashboard: https://energy-sentinel-india.streamlit.app/
 2. Select `Compound Gulf Shock`.
 3. Show how national import risk, supply gap, SPR cover, and executable reroute volume update.
 4. Open the `Digital Twin` tab to show corridor risk on the map.
