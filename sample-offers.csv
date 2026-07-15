@@ -1,0 +1,6 @@
+supplier,country,corridor,volume_mbd,premium_usd,eta_days,api,sulfur,grade,loading_port,india_port
+Brazil Lula Emergency Parcel,Brazil,atlantic,0.18,3.4,29,29,0.3,medium sweet,Santos,Mundra
+US Gulf Mars Optionality,United States,atlantic,0.22,5.1,34,31,1.9,medium sour,US Gulf,Paradip
+Guyana Liza Spot Cargo,Guyana,atlantic,0.12,4.5,32,32,0.6,medium sweet,Liza FPSO,Mangalore
+Malaysia Tapis Prompt Cargo,Malaysia,asean,0.05,7.2,11,43,0.1,light sweet,Kerteh,Chennai
+Angola Girassol Replacement,Angola,atlantic,0.14,3.8,27,31,0.3,medium sweet,Luanda,Vadinar

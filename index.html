@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Energy Sentinel India</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div class="brand-lockup">
+          <div class="brand-mark" aria-hidden="true">ES</div>
+          <div>
+            <p class="eyebrow">AI-Driven Energy Supply Chain Resilience</p>
+            <h1>Energy Sentinel India</h1>
+            <p class="subtitle">Live risk intelligence, procurement routing, and reserve response for crude import shocks.</p>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <label class="select-label" for="scenarioPreset">Scenario</label>
+          <select id="scenarioPreset" class="control">
+            <option value="baseline">Baseline Watch</option>
+            <option value="hormuz">Hormuz Partial Closure</option>
+            <option value="redsea">Red Sea Shipping Suspension</option>
+            <option value="sanctions">Sanctions Shock</option>
+            <option value="triple">Compound Gulf Shock</option>
+          </select>
+          <button id="exportMemo" class="btn primary" type="button">Export Memo</button>
+        </div>
+      </header>
+
+      <section class="status-grid" aria-label="Current resilience posture">
+        <article class="metric">
+          <span class="metric-label">National Import Risk</span>
+          <strong id="nationalRisk">--</strong>
+          <span class="metric-meter"><i id="riskMeter"></i></span>
+          <span id="riskDelta" class="metric-foot">Awaiting cycle</span>
+        </article>
+        <article class="metric">
+          <span class="metric-label">Projected Supply Gap</span>
+          <strong id="supplyGap">--</strong>
+          <span class="metric-meter"><i id="gapMeter"></i></span>
+          <span id="gapFoot" class="metric-foot">60 day horizon</span>
+        </article>
+        <article class="metric">
+          <span class="metric-label">SPR Cover</span>
+          <strong id="sprCover">--</strong>
+          <span class="metric-meter reserve"><i id="sprMeter"></i></span>
+          <span id="sprFoot" class="metric-foot">Optimized drawdown</span>
+        </article>
+        <article class="metric">
+          <span class="metric-label">Stabilization Window</span>
+          <strong id="stabilization">--</strong>
+          <span class="metric-meter"><i id="stabMeter"></i></span>
+          <span id="stabFoot" class="metric-foot">With rerouting</span>
+        </article>
+      </section>
+
+      <section class="workspace">
+        <aside class="control-panel" aria-label="Scenario controls">
+          <div class="panel-heading">
+            <h2>Signal Console</h2>
+            <span id="cycleStamp">Not run</span>
+          </div>
+
+          <div class="field">
+            <label for="signalText">Intelligence feed</label>
+            <textarea id="signalText" rows="7" spellcheck="false">Reports of elevated naval alert near the Persian Gulf, higher war-risk tanker premiums, and renewed sanctions pressure on Iranian exports. Red Sea convoys remain delayed by Houthi attacks.</textarea>
+          </div>
+
+          <div class="button-row">
+            <button id="runCycle" class="btn primary" type="button">Run Intelligence Cycle</button>
+            <button id="sampleSignal" class="btn" type="button">Demo Shock</button>
+            <button id="resetScenario" class="btn" type="button">Reset</button>
+          </div>
+
+          <div class="field">
+            <label for="offerImport">Spot offer book CSV</label>
+            <input id="offerImport" class="control" type="file" accept=".csv,.txt">
+            <p id="offerStatus" class="microcopy">No external offers loaded</p>
+          </div>
+
+          <div class="agent-stack" aria-label="Agent workflow">
+            <div><span>01</span>Risk intelligence</div>
+            <div><span>02</span>Scenario simulation</div>
+            <div><span>03</span>Procurement queue</div>
+            <div><span>04</span>Reserve schedule</div>
+          </div>
+
+          <div class="slider-stack">
+            <label class="range-label" for="hormuzSeverity">
+              <span>Hormuz disruption</span>
+              <output id="hormuzSeverityOut">35%</output>
+            </label>
+            <input id="hormuzSeverity" type="range" min="0" max="100" value="35">
+
+            <label class="range-label" for="redSeaSeverity">
+              <span>Red Sea disruption</span>
+              <output id="redSeaSeverityOut">28%</output>
+            </label>
+            <input id="redSeaSeverity" type="range" min="0" max="100" value="28">
+
+            <label class="range-label" for="sanctionsPressure">
+              <span>Sanctions pressure</span>
+              <output id="sanctionsPressureOut">42%</output>
+            </label>
+            <input id="sanctionsPressure" type="range" min="0" max="100" value="42">
+
+            <label class="range-label" for="opecCut">
+              <span>OPEC+ emergency cut</span>
+              <output id="opecCutOut">6%</output>
+            </label>
+            <input id="opecCut" type="range" min="0" max="20" value="6">
+
+            <label class="range-label" for="tankerTightness">
+              <span>Tanker availability stress</span>
+              <output id="tankerTightnessOut">34%</output>
+            </label>
+            <input id="tankerTightness" type="range" min="0" max="100" value="34">
+
+            <label class="range-label" for="brentMove">
+              <span>Brent one-session move</span>
+              <output id="brentMoveOut">8%</output>
+            </label>
+            <input id="brentMove" type="range" min="-10" max="35" value="8">
+          </div>
+        </aside>
+
+        <section class="operations">
+          <section class="twin-section" aria-label="Supply network digital twin">
+            <div class="section-title">
+              <div>
+                <h2>Supply Network Digital Twin</h2>
+                <p class="section-subtitle">Corridor stress, supplier exposure, and Indian refinery demand nodes update every cycle.</p>
+              </div>
+              <div id="scenarioBadges" class="badges"></div>
+            </div>
+            <div class="network-wrap">
+              <svg id="networkMap" viewBox="0 0 980 430" role="img" aria-labelledby="networkTitle networkDesc">
+                <title id="networkTitle">Energy supply corridor risk map</title>
+                <desc id="networkDesc">Dynamic schematic of oil corridors, suppliers, Indian import ports, and refinery demand nodes.</desc>
+              </svg>
+            </div>
+          </section>
+
+          <section class="analytics-grid">
+            <article class="panel">
+              <div class="section-title compact">
+                <h2>Corridor Risk</h2>
+                <span id="highestCorridor">--</span>
+              </div>
+              <div id="riskBars" class="bars" role="list"></div>
+            </article>
+
+            <article class="panel">
+              <div class="section-title compact">
+                <h2>60 Day Impact</h2>
+                <span id="impactPeak">--</span>
+              </div>
+              <svg id="impactChart" class="chart" viewBox="0 0 640 250" role="img" aria-labelledby="impactTitle impactDesc">
+                <title id="impactTitle">Supply gap and price stress over sixty days</title>
+                <desc id="impactDesc">Line chart showing projected crude supply gap and pump price stress under the selected disruption.</desc>
+              </svg>
+            </article>
+          </section>
+
+          <section class="table-section">
+            <div class="section-title compact">
+              <h2>Adaptive Procurement Queue</h2>
+              <span id="queueStatus">Ranked by executable score</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Rank</th>
+                    <th>Source</th>
+                    <th>Route</th>
+                    <th>Volume</th>
+                    <th>ETA</th>
+                    <th>Premium</th>
+                    <th>Fit</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="procurementRows"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="analytics-grid">
+            <article class="panel">
+              <div class="section-title compact">
+                <h2>Reserve Drawdown</h2>
+                <span id="reserveStatus">--</span>
+              </div>
+              <svg id="reserveChart" class="chart" viewBox="0 0 640 230" role="img" aria-labelledby="reserveTitle reserveDesc">
+                <title id="reserveTitle">Strategic petroleum reserve cover projection</title>
+                <desc id="reserveDesc">Area chart showing reserve cover days after optimized drawdown decisions.</desc>
+              </svg>
+            </article>
+
+            <article class="panel">
+              <div class="section-title compact">
+                <h2>Decision Brief</h2>
+                <span id="briefStatus">Live</span>
+              </div>
+              <div id="decisionBrief" class="brief" aria-live="polite"></div>
+            </article>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <script src="data.js"></script>
+    <script src="engine.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

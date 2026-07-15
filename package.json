@@ -1,0 +1,11 @@
+{
+  "name": "energy-sentinel-india",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AI-driven energy supply chain resilience dashboard for import-dependent economies.",
+  "scripts": {
+    "start": "python -m http.server 5173 --bind 127.0.0.1",
+    "streamlit": "streamlit run streamlit_app.py --server.port 8501 --server.address 127.0.0.1",
+    "test": "node --check data.js && node --check engine.js && node --check app.js && node smoke-test.js && python -m py_compile streamlit_app.py"
+  }
+}
