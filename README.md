@@ -37,6 +37,22 @@ Open:
 http://127.0.0.1:8501
 ```
 
+## Streamlit Cloud Deployment
+
+When deploying on Streamlit Cloud, select:
+
+```text
+streamlit_app.py
+```
+
+The required Python packages are listed in:
+
+```text
+requirements.txt
+```
+
+If the app shows a `ModuleNotFoundError`, reboot the app from Streamlit Cloud after pushing the latest `requirements.txt`.
+
 Alternative vanilla HTML demo:
 
 ```powershell
