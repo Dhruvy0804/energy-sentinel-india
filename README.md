@@ -23,9 +23,9 @@ The system lets users:
 
 This is not a static UI. Metrics, charts, procurement rankings, and the memo are recomputed from scenario controls, intelligence text, supply-chain data, and optional spot-offer CSV uploads.
 
-## Live Demo Mode
+## Live Demo
 
-Recommended demo:
+Recommended local demo:
 
 ```powershell
 npm run streamlit
@@ -39,13 +39,13 @@ http://127.0.0.1:8501
 
 ## Streamlit Cloud Deployment
 
-When deploying on Streamlit Cloud, select:
+When deploying on Streamlit Cloud, select this main file:
 
 ```text
 streamlit_app.py
 ```
 
-The required Python packages are listed in:
+Required Python packages are listed in:
 
 ```text
 requirements.txt
@@ -57,9 +57,19 @@ The app is forced to light mode through:
 .streamlit/config.toml
 ```
 
-If the app shows a `ModuleNotFoundError`, reboot the app from Streamlit Cloud after pushing the latest `requirements.txt`.
+The dashboard is designed to stay readable in light mode even when the viewer's browser or Streamlit account is set to dark mode. The hero title, sidebar, cards, tabs, and Plotly charts include extra light-theme styling overrides.
 
-Alternative vanilla HTML demo:
+If the app shows `ModuleNotFoundError`, push the latest `requirements.txt`, then reboot the app from Streamlit Cloud.
+
+If old styling still appears after a push, use:
+
+```text
+Manage app -> Reboot app
+```
+
+## Alternative Vanilla HTML Demo
+
+The repository also includes a no-framework HTML/CSS/JavaScript fallback version.
 
 ```powershell
 npm start
@@ -151,16 +161,19 @@ The Streamlit app generates a downloadable memo summarizing:
 
 ```text
 energy-sentinel-india/
-├── streamlit_app.py       # Main Streamlit dashboard
-├── sample-offers.csv      # Sample spot crude offer book
-├── index.html             # Vanilla HTML fallback UI
-├── styles.css             # Fallback UI styling
-├── app.js                 # Fallback UI controller
-├── data.js                # Local energy network data
-├── engine.js              # JavaScript scenario engine
-├── smoke-test.js          # Browser-path smoke test
-├── package.json           # Run and test scripts
-└── README.md              # Project documentation
+|-- streamlit_app.py        # Main Streamlit dashboard
+|-- requirements.txt        # Streamlit Cloud Python dependencies
+|-- .streamlit/config.toml  # Light theme configuration
+|-- sample-offers.csv       # Sample spot crude offer book
+|-- index.html              # Vanilla HTML fallback UI
+|-- styles.css              # Fallback UI styling
+|-- app.js                  # Fallback UI controller
+|-- data.js                 # Local energy network data
+|-- engine.js               # JavaScript scenario engine
+|-- smoke-test.js           # Browser-path smoke test
+|-- package.json            # Run and test scripts
+|-- .gitignore              # Local cache and secrets ignore rules
+`-- README.md               # Project documentation
 ```
 
 ## Run Tests
@@ -195,7 +208,7 @@ asean
 
 ## Demo Script for Judges
 
-1. Open the Streamlit dashboard at `http://127.0.0.1:8501`.
+1. Open the Streamlit dashboard.
 2. Select `Compound Gulf Shock`.
 3. Show how national import risk, supply gap, SPR cover, and executable reroute volume update.
 4. Open the `Digital Twin` tab to show corridor risk on the map.
