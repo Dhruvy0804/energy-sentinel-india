@@ -530,7 +530,10 @@ st.markdown(
         box-shadow: 0 20px 50px rgba(7, 63, 58, .22);
         margin-bottom: 18px;
     }
-    .hero h1, .hero p {
+    div[data-testid="stMarkdownContainer"] .hero h1,
+    div[data-testid="stMarkdownContainer"] .hero p,
+    .hero h1,
+    .hero p {
         color: #ffffff !important;
     }
     .hero h1 {
@@ -571,7 +574,7 @@ st.markdown(
 st.markdown(
     """
     <div class="hero">
-      <h1>Energy Sentinel India</h1>
+      <h1 style="color:#ffffff !important;">Energy Sentinel India</h1>
       <p>AI command center for crude import risk, rerouting, refinery impact, and strategic reserve response.</p>
     </div>
     """,
