@@ -43,50 +43,6 @@ Open:
 http://127.0.0.1:8501
 ```
 
-## Streamlit Cloud Deployment
-
-When deploying on Streamlit Cloud, select this main file:
-
-```text
-streamlit_app.py
-```
-
-Required Python packages are listed in:
-
-```text
-requirements.txt
-```
-
-The app is forced to light mode through:
-
-```text
-.streamlit/config.toml
-```
-
-The dashboard is designed to stay readable in light mode even when the viewer's browser or Streamlit account is set to dark mode. The hero title, sidebar, cards, tabs, and Plotly charts include extra light-theme styling overrides.
-
-If the app shows `ModuleNotFoundError`, push the latest `requirements.txt`, then reboot the app from Streamlit Cloud.
-
-If old styling still appears after a push, use:
-
-```text
-Manage app -> Reboot app
-```
-
-## Alternative Vanilla HTML Demo
-
-The repository also includes a no-framework HTML/CSS/JavaScript fallback version.
-
-```powershell
-npm start
-```
-
-Open:
-
-```text
-http://127.0.0.1:5173
-```
-
 ## Key Features
 
 ### 1. Geopolitical Risk Intelligence
