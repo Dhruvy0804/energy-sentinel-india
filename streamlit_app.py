@@ -12,9 +12,12 @@ import plotly.graph_objects as go
 import streamlit as st
 
 
+px.defaults.template = "plotly_white"
+
+
 st.set_page_config(
     page_title="Energy Sentinel India",
-    page_icon="⚡",
+    page_icon="ES",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -471,8 +474,17 @@ def load_offer_file(uploaded) -> pd.DataFrame | None:
 st.markdown(
     """
     <style>
+    :root {
+        color-scheme: light !important;
+    }
+    html, body, [data-testid="stAppViewContainer"], .stApp {
+        color: #111b22 !important;
+    }
     .stApp {
         background: linear-gradient(180deg, #f7fbfc 0%, #eef3f6 42%, #edf2f5 100%);
+    }
+    h1, h2, h3, h4, h5, h6, p, label, span, div[data-testid="stMarkdownContainer"] {
+        color: #111b22;
     }
     div[data-testid="stMetric"] {
         background: #ffffff;
@@ -485,9 +497,30 @@ st.markdown(
         color: #0d1b22;
         font-weight: 800;
     }
+    div[data-testid="stMetricLabel"],
+    div[data-testid="stMetricDelta"] {
+        color: #42505a !important;
+    }
     section[data-testid="stSidebar"] {
-        background: #ffffff;
+        background: #ffffff !important;
         border-right: 1px solid #d9e4e9;
+    }
+    section[data-testid="stSidebar"] * {
+        color: #111b22 !important;
+    }
+    section[data-testid="stSidebar"] textarea,
+    section[data-testid="stSidebar"] input,
+    section[data-testid="stSidebar"] div[data-baseweb="select"] > div,
+    section[data-testid="stSidebar"] div[data-testid="stFileUploader"] section {
+        background: #ffffff !important;
+        color: #111b22 !important;
+        border-color: #c9d7df !important;
+    }
+    div[data-baseweb="tab-list"] button p {
+        color: #42505a !important;
+    }
+    div[data-baseweb="tab-list"] button[aria-selected="true"] p {
+        color: #087264 !important;
     }
     .hero {
         padding: 22px 24px;
@@ -496,6 +529,9 @@ st.markdown(
         color: white;
         box-shadow: 0 20px 50px rgba(7, 63, 58, .22);
         margin-bottom: 18px;
+    }
+    .hero h1, .hero p {
+        color: #ffffff !important;
     }
     .hero h1 {
         margin: 0;
@@ -649,7 +685,11 @@ with tab_reserves:
     )
     st.plotly_chart(fig, use_container_width=True)
     c1, c2 = st.columns(2)
-    c1.line_chart(timeline.set_index("Day")[["Pump price pressure %", "Refinery run %"]], use_container_width=True)
+    line_fig = go.Figure()
+    line_fig.add_trace(go.Scatter(x=timeline.Day, y=timeline["Pump price pressure %"], name="Pump price pressure %", line={"color": "#9c6b00", "width": 3}))
+    line_fig.add_trace(go.Scatter(x=timeline.Day, y=timeline["Refinery run %"], name="Refinery run %", line={"color": "#246b9b", "width": 3}))
+    line_fig.update_layout(height=360, margin={"l": 8, "r": 8, "t": 10, "b": 8}, legend={"orientation": "h", "y": 1.08})
+    c1.plotly_chart(line_fig, use_container_width=True)
     c2.dataframe(timeline.head(15), use_container_width=True, hide_index=True)
 
 with tab_memo:

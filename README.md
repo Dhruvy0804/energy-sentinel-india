@@ -51,6 +51,12 @@ The required Python packages are listed in:
 requirements.txt
 ```
 
+The app is forced to light mode through:
+
+```text
+.streamlit/config.toml
+```
+
 If the app shows a `ModuleNotFoundError`, reboot the app from Streamlit Cloud after pushing the latest `requirements.txt`.
 
 Alternative vanilla HTML demo:
